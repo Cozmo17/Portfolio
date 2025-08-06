@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shlok Sharma - Game Developer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1e3a8a 50%, #000000 100%);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #3b82f6, #ef4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circuit" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 10h20M10 0v20" stroke="%23333" stroke-width="0.5" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23circuit)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #3b82f6, #ef4444, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 6rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: #9ca3af;
+            max-width: 48rem;
+            margin: 0 auto 3rem;
+            line-height: 1.75;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            font-size: 1.125rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #2563eb, #dc2626);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #1d4ed8, #b91c1c);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid #3b82f6;
+            color: #3b82f6;
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: #9ca3af;
+            transition: color 0.3s;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: white;
+        }
+
+        .chevron-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 1s infinite;
+            color: #3b82f6;
+            font-size: 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-dark {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .section-darker {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, #3b82f6, #ef4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(239, 68, 68, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 0.5rem;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 72rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .card:hover .project-title {
+            color: #3b82f6;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+
+        .badge-red {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .project-description {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .project-features {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            list-style: none;
+        }
+
+        .project-features li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 64rem;
+            margin: 0 auto;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .skill-card {
+            text-align: center;
+        }
+
+        .skill-icon {
+            width: 3rem;
+            height: 3rem;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            color: #3b82f6;
+        }
+
+        .skill-card:nth-child(2) .skill-icon,
+        .skill-card:nth-child(4) .skill-icon {
+            color: #ef4444;
+        }
+
+        .skill-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .skill-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .skill-badge {
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            color: #93c5fd;
+            background: transparent;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .skill-card:nth-child(2) .skill-badge,
+        .skill-card:nth-child(4) .skill-badge {
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #fca5a5;
+        }
+
+        /* Education Card */
+        .education-card {
+            max-width: 32rem;
+            margin: 4rem auto 0;
+            text-align: center;
+        }
+
+        .education-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .education-degree {
+            font-size: 1.125rem;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .education-university {
+            color: #d1d5db;
+            margin-top: 0.5rem;
+        }
+
+        .education-year {
+            color: #9ca3af;
+            margin-top: 0.25rem;
+        }
+
+        /* Contact */
+        .contact-card {
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-icon-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .contact-icon-red {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .contact-label {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .contact-value {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value:hover {
+            color: #3b82f6;
+        }
+
+        .contact-value.red:hover {
+            color: #ef4444;
+        }
+
+        .contact-social {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .contact-social a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-social a:hover {
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            text-align: center;
+        }
+
+        .footer-text {
+            color: #9ca3af;
+        }
+
+        .footer-subtext {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">SHLOK.DEV</div>
+                <div class="nav-links">
+                    <a href="#hero" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>SHLOK SHARMA</h1>
+                <div class="hero-subtitle">
+                    <span>⚡</span>
+                    Game Developer & Creative Technologist
+                </div>
+                <p class="hero-description">
+                    Passionate Computer Science student crafting immersive worlds and pushing the boundaries 
+                    of interactive experiences through cutting-edge game development and creative technology.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        🎮 View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        📧 Get In Touch
+                    </a>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://github.com/Cozmo17" target="_blank" title="GitHub">⚡</a>
+                    <a href="https://www.linkedin.com/in/shlok-sharma-81071528a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn">🔗</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chevron-down">⬇</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div style="max-width: 64rem; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-content" style="padding: 2rem;">
+                        <p style="font-size: 1.125rem; color: #d1d5db; line-height: 1.75; margin-bottom: 1.5rem;">
+                            I'm a passionate and curious Computer Science student with a deep interest in game development 
+                            and creative technology. With a strong foundation in C++ and C#, I enjoy building immersive 
+                            and engaging worlds and systems.
+                        </p>
+                        <p style="font-size: 1.125rem; color: #d1d5db; line-height: 1.75; margin-bottom: 1.5rem;">
+                            I am constantly expanding my knowledge and techniques to bring my ideas to life. I thrive on 
+                            pushing boundaries with experimental concepts and using the latest technology to create more 
+                            impactful experiences.
+                        </p>
+                        <p style="font-size: 1.125rem; color: #d1d5db; line-height: 1.75;">
+                            From exploring new rendering techniques and improving my design skills to grappling with 
+                            game-play and tech like photogrammetry and metahumans, I believe in learning by doing and 
+                            infusing my imagination into interactive experiences.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                
+                <!-- Project 1: 2D Shooter Game -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="project-header">
+                            <span style="color: #3b82f6; font-size: 1.5rem;">🎮</span>
+                            <h3 class="project-title">2D Shooter Game</h3>
+                        </div>
+                        <div class="badges">
+                            <span class="badge">Unity</span>
+                            <span class="badge">C#</span>
+                        </div>
+                        <p class="project-description">
+                            Developed a side-scrolling 2D shooter game featuring three progressively challenging levels. 
+                            Implemented player movement, shooting mechanics, health system, and AI-driven enemies with 
+                            Unity's Navmesh system.
+                        </p>
+                        <ul class="project-features">
+                            <li>• Complete game-play, UI, and animation design</li>
+                            <li>• AI-driven enemy behaviors</li>
+                            <li>• Comprehensive C# scripting experience</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 2: Photogrammetry -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="project-header">
+                            <span style="color: #ef4444; font-size: 1.5rem;">🔬</span>
+                            <h3 class="project-title">3D Realistic Environment</h3>
+                        </div>
+                        <div class="badges">
+                            <span class="badge badge-red">Unreal Engine 5</span>
+                            <span class="badge badge-red">Photogrammetry</span>
+                        </div>
+                        <p class="project-description">
+                            Captured real-world photo-data to create high-detail 3D scans using photogrammetry. 
+                            Integrated models in Blender and imported into Unreal Engine 5 with metahuman rigging.
+                        </p>
+                        <ul class="project-features">
+                            <li>• Realistic facial rigging and hair systems</li>
+                            <li>• Animation-ready for game/film projects</li>
+                            <li>• Advanced 3D scanning techniques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 3: 3D Castle Environment -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="project-header">
+                            <span style="color: #3b82f6; font-size: 1.5rem;">🏰</span>
+                            <h3 class="project-title">3D Castle Environment</h3>
+                        </div>
+                        <div class="badges">
+                            <span class="badge">Unreal Engine 5</span>
+                            <span class="badge">Lighting</span>
+                        </div>
+                        <p class="project-description">
+                            Created a visually rich and atmospheric medieval castle environment using Unreal Engine 5's 
+                            advanced lighting systems and custom lighting setups.
+                        </p>
+                        <ul class="project-features">
+                            <li>• Advanced custom lighting systems</li>
+                            <li>• Performance-optimized realistic environments</li>
+                            <li>• Complex texturing and atmospheric design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project 4: GTA-inspired Game -->
+                <div class="card">
+                    <div class="card-content">
+                        <div class="project-header">
+                            <span style="color: #ef4444; font-size: 1.5rem;">🚗</span>
+                            <h3 class="project-title">GTA 5-inspired Features</h3>
+                        </div>
+                        <div class="badges">
+                            <span class="badge badge-red">Unreal Engine 5</span>
+                            <span class="badge badge-red">Vehicle Systems</span>
+                        </div>
+                        <p class="project-description">
+                            Created comprehensive game systems inspired by GTA 5, including vehicle mechanics, 
+                            combat systems, and AI integration with realistic physics.
+                        </p>
+                        <ul class="project-features">
+                            <li>• Multiple vehicle types with realistic physics</li>
+                            <li>• Complete weapon and combat systems</li>
+                            <li>• Advanced AI with patrol and combat behaviors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section section-darker">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                
+                <div class="card skill-card">
+                    <div class="card-content">
+                        <div class="skill-icon">💻</div>
+                        <h3 class="skill-title">Programming</h3>
+                        <div class="skill-badges">
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">C#</span>
+                            <span class="skill-badge">C++</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card skill-card">
+                    <div class="card-content">
+                        <div class="skill-icon">🎮</div>
+                        <h3 class="skill-title">Game Engines</h3>
+                        <div class="skill-badges">
+                            <span class="skill-badge">Unreal Engine</span>
+                            <span class="skill-badge">Unity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card skill-card">
+                    <div class="card-content">
+                        <div class="skill-icon">🎨</div>
+                        <h3 class="skill-title">3D Design</h3>
+                        <div class="skill-badges">
+                            <span class="skill-badge">Blender</span>
+                            <span class="skill-badge">Maya</span>
+                            <span class="skill-badge">Photoshop</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card skill-card">
+                    <div class="card-content">
+                        <div class="skill-icon">⚡</div>
+                        <h3 class="skill-title">Specialized</h3>
+                        <div class="skill-badges">
+                            <span class="skill-badge">Photogrammetry</span>
+                            <span class="skill-badge">VFX</span>
+                            <span class="skill-badge">Metashape</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="education-card">
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="education-title">Education</h3>
+                        <div class="education-degree">B.TECH Computer Science and Engineering</div>
+                        <div class="education-university">Bennett University, Greater Noida, Uttar Pradesh, India</div>
+                        <div class="education-year">Expected Graduation: 2027</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-card">
+                <div class="card">
+                    <div class="card-content" style="padding: 2rem;">
+                        <div class="contact-item">
+                            <div class="contact-icon contact-icon-blue">📧</div>
+                            <div>
+                                <div class="contact-label">Email</div>
+                                <a href="mailto:shloksharma2005@gmail.com" class="contact-value">
+                                    shloksharma2005@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon contact-icon-red">📱</div>
+                            <div>
+                                <div class="contact-label">Phone</div>
+                                <a href="tel:+919873798053" class="contact-value red">
+                                    +91 9873798053
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon contact-icon-blue">📍</div>
+                            <div>
+                                <div class="contact-label">Location</div>
+                                <div class="contact-value">New Delhi, India, 110041</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-social">
+                            <a href="https://github.com/Cozmo17" target="_blank">
+                                <span>⚡</span>
+                                <span>GitHub</span>
+                                <span>↗</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/shlok-sharma-81071528a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">
+                                <span>🔗</span>
+                                <span>LinkedIn</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-text">
+                © 2024 Shlok Sharma. Crafted with passion for game development.
+            </div>
+            <div class="footer-subtext">
+                Languages: Hindi (Native) • English (Advanced)
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = ['hero', 'about', 'projects', 'skills', 'contact'];
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+                
+                if (section && navLink) {
+                    const { offsetTop, offsetHeight } = section;
+                    
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        // Remove active class from all nav links
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        // Add active class to current nav link
+                        navLink.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add click effect to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
